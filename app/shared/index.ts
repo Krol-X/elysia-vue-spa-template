@@ -1,15 +1,20 @@
-// app/shared/index.ts
-export const isProduction = (): boolean => {
+// @ts-ignore
+const viteEnv = typeof import.meta !== 'undefined' && import.meta.env
+// @ts-ignore
+const nodeEnv = typeof process !== 'undefined' && process.env
+
+export const isViteEnv = (): boolean => !!viteEnv
+
+export const isNodeEnv = (): boolean => !!nodeEnv
+
+export const getEnv = (name: string, defaultValue?: string): string | undefined => {
   // @ts-ignore
-  if (typeof import.meta !== 'undefined' && import.meta.env?.PROD !== undefined) {
-    // @ts-ignore
-    return import.meta.env.PROD === true
+  return viteEnv?.[name] ?? nodeEnv?.[name] ?? defaultValue
+}
+
+export const isProduction = (): boolean => {
+  if (viteEnv?.PROD !== undefined) {
+    return viteEnv.PROD === true
   }
-  
-  try {
-    // @ts-ignore
-    return process.env.NODE_ENV === 'production'
-  } catch {
-    return false
-  }
+  return getEnv('NODE_ENV') === 'production'
 }

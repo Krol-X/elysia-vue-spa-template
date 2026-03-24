@@ -1,4 +1,8 @@
-import { rename, unlink } from 'fs/promises';
+import { rename } from 'fs/promises'
+import { Glob } from 'bun'
+
+const isWindows = process.platform === 'win32'
+const appName = isWindows ? 'app.exe' : 'app'
 
 await Bun.build({
   entrypoints: ['src/index.ts'],
@@ -16,14 +20,14 @@ await Bun.build({
   },
 }).then(async (result) => {
   if (!result.success) {
-    console.error('Build failed:', result.logs);
-    return;
+    console.error('Build failed:', result.logs)
+    return
   }
 
-  const outputPath = result.outputs[0]?.path;
+  const outputPath = result.outputs[0]?.path
   if (outputPath) {
-    const newPath = outputPath.replace(/[^/\\]+$/, 'app.exe');
-    await rename(outputPath, newPath);
-    console.log(`> Built: ${newPath}`);
+    const newPath = outputPath.replace(/[^/\\]+$/, appName)
+    await rename(outputPath, newPath)
+    console.log(`> Built: ${newPath}`)
   }
-});
+})
