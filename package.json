@@ -1,5 +1,7 @@
 {
   "name": "elysia-vue-spa-template",
+  "description": "A minimal full-stack template with Vue frontend and Elysia backend, compiled into a single executable",
+  "version": "1.0.0",
   "workspaces": [
     "app/*"
   ],
