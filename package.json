@@ -1,0 +1,23 @@
+{
+  "name": "elysia-vue-spa-template",
+  "private": true,
+  "workspaces": [
+    "app/*"
+  ],
+  "scripts": {
+    "dev": "concurrently -n api,web -c blue,green \"bun run dev:api\" \"bun run dev:web\"",
+    "dev:api": "bun run --cwd app/api dev",
+    "dev:web": "bun run --cwd app/web dev",
+    "build": "bun run build:web && bun run build:api",
+    "build:api": "bun run --cwd app/api build",
+    "build:web": "bun run --cwd app/web build",
+    "preview": "bun run --cwd dist ./app"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "concurrently": "^9.2.1"
+  },
+  "peerDependencies": {
+    "typescript": "~5.9.3"
+  }
+}
