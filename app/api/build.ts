@@ -11,6 +11,9 @@ await Bun.build({
     syntax: true,
   },
   compile: true,
+  define: {
+    'process.env.NODE_ENV': '"production"',
+  },
 }).then(async (result) => {
   if (!result.success) {
     console.error('Build failed:', result.logs);
