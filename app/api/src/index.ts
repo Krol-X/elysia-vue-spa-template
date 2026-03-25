@@ -9,7 +9,7 @@ const api = new Elysia({ prefix: '/api' })
 
 const app = new Elysia()
   .use(
-    isProduction
+    isProduction()
       ? await staticPlugin({
           assets: '.',
           prefix: '/',
