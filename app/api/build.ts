@@ -1,5 +1,4 @@
 import { rename } from 'fs/promises'
-import { Glob } from 'bun'
 
 const isWindows = process.platform === 'win32'
 const appName = isWindows ? 'app.exe' : 'app'
@@ -7,7 +6,6 @@ const appName = isWindows ? 'app.exe' : 'app'
 await Bun.build({
   entrypoints: ['src/index.ts'],
   target: 'bun',
-  bundle: true,
   outdir: '../../dist',
   minify: {
     whitespace: true,
