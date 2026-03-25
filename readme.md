@@ -22,14 +22,12 @@ bun run preview
 
 ### Development
 - http://localhost:5173 – Vite dev server (frontend + API proxy)
-- http://localhost:5173/api/up – API через Vite proxy
-- http://localhost:3000/api/up – API напрямую
+- http://localhost:5173/api/up – API via Vite proxy (dev mode)
+- http://localhost:3000/api/up – API direct
 
 ### Production
 - http://localhost:3030 – Full app (static + API)
 - http://localhost:3030/api/up – Health check endpoint
-
-> В dev-режиме работай на `localhost:5173` – Vite проксирует `/api/*` на backend.
 
 
 ## Project Structure
@@ -60,4 +58,6 @@ bun run preview       # Run compiled app
 ## Todo
 
 - [ ] add Eden
+- [ ] make basic project structure
+- [ ] add drizzle-orm support
 - [ ] implement support embedded files patch for @elysiajs/static
