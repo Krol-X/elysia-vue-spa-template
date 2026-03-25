@@ -8,7 +8,7 @@ export const isViteEnv = (): boolean => !nodeEnv
 
 export const getEnv = (name: string, defaultValue?: string): string | undefined => {
   // @ts-ignore
-  return (isViteEnv? viteEnv?.[name]: nodeEnv?.[name]) ?? defaultValue
+  return (isViteEnv ? viteEnv?.[name] : nodeEnv?.[name]) ?? defaultValue
 }
 
 export const isProduction = (): boolean => {
