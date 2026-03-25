@@ -11,12 +11,15 @@
   },
   "dependencies": {
     "@app/shared": "workspace:*",
+    "@app/api": "workspace:*",
+    "@elysiajs/eden": "^1.4.8",
     "vue": "^3.5.30"
   },
   "devDependencies": {
     "@types/node": "^24.12.0",
     "@vitejs/plugin-vue": "^6.0.5",
     "@vue/tsconfig": "^0.9.0",
+    "elysia": "^1.4.28",
     "typescript": "~5.9.3",
     "vite": "^8.0.1",
     "vue-tsc": "^3.2.5"

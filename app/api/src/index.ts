@@ -20,4 +20,6 @@ const app = new Elysia()
   .use(api)
   .listen(port)
 
+export type App = typeof app
+
 console.log(`> Listening on ${app.server!.url}`);
