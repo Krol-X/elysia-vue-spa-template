@@ -2,7 +2,7 @@
 import HelloWorld from './components/HelloWorld.vue'
 import { isProduction } from '@app/shared'
 import { treaty } from '@elysiajs/eden'
-import type { App } from '@app/api/src'
+import type { App } from '@app/api/src/server'
 import { onMounted, ref } from 'vue'
 
 const client = treaty<App>(window.location.origin)

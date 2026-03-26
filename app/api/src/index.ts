@@ -1,27 +1,23 @@
-import { Elysia } from 'elysia'
-import { staticPlugin } from '@elysiajs/static'
-import { isProduction } from '@app/shared'
+import { Webview, SizeHint } from 'webview-bun'
 
-const port = process.env.PORT || (isProduction() ? 3030 : 3000)
+const port = 3030
 
-const api = new Elysia({ prefix: '/api' }).get('/up', () => ({
-  status: 'ok',
-  production: isProduction(),
-}))
+declare const __SERVER_CODE__: string
 
-const app = new Elysia()
-  .use(
-    isProduction()
-      ? await staticPlugin({
-          assets: '.',
-          prefix: '/',
-          indexHTML: true,
-        })
-      : (app) => app,
-  )
-  .use(api)
-  .listen(port)
+const blob = new Blob([__SERVER_CODE__], { type: 'application/typescript' })
+const worker = new Worker(URL.createObjectURL(blob))
 
-export type App = typeof app
+const webview = new Webview()
+webview.title = 'Elysia + Vue SPA Template + Webview'
+webview.size = {
+  width: 1180,
+  height: 800,
+  hint: SizeHint.NONE,
+}
 
-console.log(`> Listening on ${app.server!.url}`)
+webview.navigate(`http://localhost:${port}`)
+
+webview.run()
+
+worker.terminate()
+process.exit(0)
