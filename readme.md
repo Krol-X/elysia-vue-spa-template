@@ -53,11 +53,3 @@ bun run build:api     # Build backend only
 bun run build:web     # Build frontend only
 bun run preview       # Run compiled app
 ```
-
-
-## Todo
-
-- [x] add Eden
-- [ ] make basic project structure
-- [ ] add drizzle-orm support
-- [ ] implement support embedded files patch for @elysiajs/static
