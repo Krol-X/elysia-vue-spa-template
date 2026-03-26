@@ -1,8 +1,3 @@
-import { rename } from 'fs/promises'
-
-const isWindows = process.platform === 'win32'
-const appName = isWindows ? 'app.exe' : 'app'
-
 await Bun.build({
   entrypoints: ['src/index.ts'],
   target: 'bun',
@@ -12,7 +7,9 @@ await Bun.build({
     identifiers: false,
     syntax: true,
   },
-  compile: true,
+  compile: {
+    outfile: 'app'
+  },
   define: {
     'process.env.NODE_ENV': '"production"',
   },
@@ -20,12 +17,5 @@ await Bun.build({
   if (!result.success) {
     console.error('Build failed:', result.logs)
     return
-  }
-
-  const outputPath = result.outputs[0]?.path
-  if (outputPath) {
-    const newPath = outputPath.replace(/[^/\\]+$/, appName)
-    await rename(outputPath, newPath)
-    console.log(`> Built: ${newPath}`)
   }
 })
