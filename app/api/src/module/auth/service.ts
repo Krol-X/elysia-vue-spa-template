@@ -2,12 +2,23 @@ import { status } from 'elysia'
 import { eq } from 'drizzle-orm'
 import { db } from '@/db'
 import { User } from '@/module/user/model'
-import type { SignInBody, SignInResponse } from './dto'
+import { UserService } from '@/module/user/service'
+import type { SignInBody, SignInResponse, SignUpBody, SignUpResponse } from './dto'
 
 const JWT_SECRET = process.env.JWT_SECRET || 'dev-secret-change-in-production'
 const TOKEN_EXPIRES_IN = 3600 // 1 hour
 
 export abstract class AuthService {
+  static async signUp({ name, email, password }: SignUpBody): Promise<SignUpResponse> {
+    const existingUser = await db.select().from(User).where(eq(User.email, email))
+    if (existingUser.length > 0) {
+      throw status(409, 'USER_ALREADY_EXISTS')
+    }
+
+    const createdUser = await UserService.create({ name, email, password })
+    return createdUser
+  }
+
   static async signIn({ email, password }: SignInBody): Promise<SignInResponse> {
     const [user] = await db.select().from(User).where(eq(User.email, email))
 

@@ -1,9 +1,11 @@
 import { Database } from 'bun:sqlite'
 import { drizzle } from 'drizzle-orm/bun-sqlite'
-import { migrate } from 'drizzle-orm/bun-sqlite/migrator'
+import { getDbPath, ensureDbFile } from '@/config/database'
 
-const sqlite = new Database()
-const db = drizzle(sqlite)
-migrate(db, { migrationsFolder: './drizzle' })
+const dbPath = getDbPath(process.env.DATABASE_URL)
+ensureDbFile(dbPath)
 
-export { db }
+const dbConnection = new Database(dbPath)
+const db = drizzle(dbConnection)
+
+export { db, dbConnection, dbPath }

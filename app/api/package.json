@@ -4,7 +4,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "bun --bun run --watch src/index.ts",
-    "db:update": "bunx --bun drizzle-kit generate"
+    "db:generate": "bunx --bun drizzle-kit generate",
+    "db:migrate": "bun --bun bin/migrate.ts",
+    "db:seed": "bun run bin/seed.ts"
   },
   "dependencies": {
     "@app/shared": "workspace:*",

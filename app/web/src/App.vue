@@ -1,21 +1,26 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
-import { isProduction } from '@app/shared'
-import { treaty } from '@elysiajs/eden'
-import type { App } from '@app/api/src'
-import { onMounted, ref } from 'vue'
+import { ref } from 'vue'
+import HeaderPanel from '@/components/HeaderPanel.vue'
+import AuthModal from '@/components/AuthModal.vue'
+import ProfileModal from '@/components/ProfileModal.vue'
 
-const client = treaty<App>(window.location.origin)
-const server_info = ref<string>('')
-
-onMounted(async () => {
-  const { data } = await client.api.up.get()
-  server_info.value = JSON.stringify(data)
-})
+const showAuthModal = ref(false)
+const showProfileModal = ref(false)
 </script>
 
 <template>
-  <div>Client in production mode: {{ isProduction() }}</div>
-  <div>Server up info: {{ server_info }}</div>
-  <HelloWorld />
+  <HeaderPanel @open-auth="showAuthModal = true" @open-profile="showProfileModal = true" />
+
+  <div id="content">
+    <router-view />
+  </div>
+
+  <AuthModal :open="showAuthModal" @close="showAuthModal = false" @signed-in="showAuthModal = false" />
+  <ProfileModal :open="showProfileModal" @close="showProfileModal = false" />
 </template>
+
+<style scoped>
+#content {
+  flex-grow: 1;
+}
+</style>
