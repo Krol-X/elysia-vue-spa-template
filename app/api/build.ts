@@ -8,7 +8,7 @@ await Bun.build({
     syntax: true,
   },
   compile: {
-    outfile: 'app'
+    outfile: 'app',
   },
   define: {
     'process.env.NODE_ENV': '"production"',

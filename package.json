@@ -19,9 +19,13 @@
     "@types/bun": "latest",
     "concurrently": "^9.2.1",
     "cross-env": "^10.1.0",
+    "drizzle-kit": "^0.31.10",
     "prettier": "^3.8.1"
   },
   "peerDependencies": {
     "typescript": "~5.9.3"
+  },
+  "dependencies": {
+    "drizzle-orm": "^0.45.2"
   }
 }

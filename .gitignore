@@ -18,6 +18,10 @@ yarn-debug.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# Database
+.data
+*.db
+
 # Environment
 .env
 .env.*

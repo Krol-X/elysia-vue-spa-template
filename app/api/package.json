@@ -3,15 +3,18 @@
   "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "bun run --watch src/index.ts"
+    "dev": "bun --bun run --watch src/index.ts",
+    "db:update": "bunx --bun drizzle-kit generate"
   },
   "dependencies": {
     "@app/shared": "workspace:*",
     "@elysiajs/static": "^1.4.7",
+    "drizzle-orm": "^0.45.2",
     "elysia": "latest"
   },
   "devDependencies": {
-    "bun-types": "latest"
+    "bun-types": "latest",
+    "drizzle-kit": "^0.31.10"
   },
   "module": "src/index.js"
 }
