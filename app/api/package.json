@@ -5,8 +5,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "bun --bun run --watch src/index.ts",
     "db:generate": "bunx --bun drizzle-kit generate",
-    "db:migrate": "bun --bun bin/migrate.ts",
-    "db:seed": "bun run bin/seed.ts"
+    "db:migrate": "bun run src/index.ts db:migrate",
+    "db:seed": "bun run src/index.ts db:seed"
   },
   "dependencies": {
     "@app/shared": "workspace:*",

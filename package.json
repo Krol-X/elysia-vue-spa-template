@@ -13,6 +13,8 @@
     "build:api": "bun run --cwd app/api build",
     "build:web": "bun run --cwd app/web build",
     "preview": "bun run --cwd dist ./app",
+    "preview:migrate": "bun run --cwd dist ./app db:migrate",
+    "preview:seed": "bun run --cwd dist ./app db:seed",
     "format": "prettier app --write"
   },
   "devDependencies": {
