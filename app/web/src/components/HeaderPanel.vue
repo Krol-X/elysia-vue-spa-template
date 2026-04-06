@@ -1,12 +1,19 @@
 <script setup lang="ts">
 import { useAuth } from '@/composables/useAuth'
+import { useRouter } from 'vue-router'
 
 const auth = useAuth()
+const router = useRouter()
 
 const emit = defineEmits<{
   openAuth: []
   openProfile: []
 }>()
+
+function onSignOut() {
+  auth.signOut()
+  router.push('/')
+}
 </script>
 
 <template>
@@ -23,7 +30,7 @@ const emit = defineEmits<{
         <RouterLink to="/users" class="nav-link" active-class="active">Users</RouterLink>
       </nav>
       <button class="btn-sm" @click="emit('openProfile')">Профиль</button>
-      <button class="btn-sm" @click="auth.signOut()">Выход</button>
+      <button class="btn-sm" @click="onSignOut">Выход</button>
     </div>
 
     <div v-else class="right">

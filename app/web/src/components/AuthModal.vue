@@ -17,6 +17,7 @@ async function handleSignIn() {
   error.value = ''
   try {
     await auth.signIn(signInForm.value)
+    resetForms()
     emit('signedIn')
     emit('close')
   } catch (e: any) {
@@ -36,6 +37,7 @@ async function handleSignUp() {
       email: signUpForm.value.email,
       password: signUpForm.value.password,
     })
+    resetForms()
     emit('signedIn')
     emit('close')
   } catch (e: any) {
