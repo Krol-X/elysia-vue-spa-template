@@ -38,13 +38,13 @@ async function loadUsers() {
 
 async function removeUser(id: string) {
   if (!auth.user.value) return
-  
+
   if (auth.user.value.id === id) {
-    alert('Вы не можете удалить самого себя')
+    alert('You cannot delete yourself')
     return
   }
 
-  if (!confirm('Удалить пользователя?')) return
+  if (!confirm('Delete this user?')) return
   try {
     // @ts-expect-error Eden dynamic type
     await api.api.users({ id }).delete(undefined, {
@@ -53,7 +53,7 @@ async function removeUser(id: string) {
     users.value = users.value.filter((u) => u.id !== id)
   } catch (e) {
     console.error('Failed to delete user:', e)
-    alert('Не удалось удалить пользователя')
+    alert('Failed to delete user')
   }
 }
 
@@ -70,17 +70,17 @@ function openEdit(user: { id: string; name: string; email: string }) {
   <div class="users">
     <div class="users-header">
       <h2>Users</h2>
-      <button class="btn-create" @click="openCreate">+ Создать пользователя</button>
+      <button class="btn-create" @click="openCreate">+ Create User</button>
     </div>
 
-    <p v-if="loading">Загрузка...</p>
+    <p v-if="loading">Loading...</p>
 
     <table v-else-if="users.length" class="users-table">
       <thead>
         <tr>
-          <th>Имя</th>
+          <th>Name</th>
           <th>Email</th>
-          <th>Действия</th>
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -88,27 +88,27 @@ function openEdit(user: { id: string; name: string; email: string }) {
           <td>{{ user.name }}</td>
           <td>{{ user.email }}</td>
           <td class="actions">
-            <button 
-              v-if="user.id !== auth.user.value?.id" 
-              class="btn-edit" 
+            <button
+              v-if="user.id !== auth.user.value?.id"
+              class="btn-edit"
               @click="openEdit(user)"
             >
-              Редактировать
+              Edit
             </button>
-            <button 
-              v-if="user.id !== auth.user.value?.id" 
-              class="btn-del" 
+            <button
+              v-if="user.id !== auth.user.value?.id"
+              class="btn-del"
               @click="removeUser(user.id)"
             >
-              Удалить
+              Delete
             </button>
-            <span v-else class="current-user-label">(Вы)</span>
+            <span v-else class="current-user-label">(You)</span>
           </td>
         </tr>
       </tbody>
     </table>
 
-    <p v-else class="empty">Нет пользователей</p>
+    <p v-else class="empty">No users found</p>
   </div>
 </template>
 

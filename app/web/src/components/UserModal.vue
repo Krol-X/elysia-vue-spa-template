@@ -80,18 +80,18 @@ async function handleSubmit() {
   success.value = ''
 
   if (!name.value.trim() || name.value.length < 2 || name.value.length > 50) {
-    error.value = 'Имя должно быть от 2 до 50 символов'
+    error.value = 'Name must be between 2 and 50 characters'
     return
   }
 
   if (!email.value.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
-    error.value = 'Введите корректный email'
+    error.value = 'Enter a valid email address'
     return
   }
 
   if (props.mode === 'create' || changePassword.value) {
     if (!password.value || password.value.length < 8 || password.value.length > 100) {
-      error.value = 'Пароль должен быть от 8 до 100 символов'
+      error.value = 'Password must be between 8 and 100 characters'
       return
     }
   }
@@ -105,7 +105,7 @@ async function handleSubmit() {
         email: email.value.trim(),
         password: password.value,
       })
-      success.value = 'Пользователь создан успешно!'
+      success.value = 'User created successfully!'
     } else if (props.user) {
       await auth.updateUser(props.user.id, {
         name: name.value.trim(),
@@ -114,9 +114,9 @@ async function handleSubmit() {
 
       if (changePassword.value) {
         await auth.resetPassword(props.user.id, password.value)
-        success.value = 'Пользователь обновлён, пароль изменён!'
+        success.value = 'User updated, password changed!'
       } else {
-        success.value = 'Пользователь обновлён!'
+        success.value = 'User updated!'
       }
     }
 
@@ -131,7 +131,7 @@ async function handleSubmit() {
     if (err?.summary || err?.message) {
       error.value = err.summary || err.message
     } else {
-      error.value = 'Произошла ошибка при сохранении'
+      error.value = 'An error occurred while saving'
     }
   } finally {
     loading.value = false
@@ -140,15 +140,15 @@ async function handleSubmit() {
 </script>
 
 <template>
-  <Modal :open="open" :title="mode === 'create' ? 'Создать пользователя' : 'Редактировать пользователя'" @close="emit('close')">
+  <Modal :open="open" :title="mode === 'create' ? 'Create User' : 'Edit User'" @close="emit('close')">
     <form @submit.prevent="handleSubmit" class="user-form" autocomplete="off">
       <div class="form-group">
-        <label for="user-name">Имя</label>
+        <label for="user-name">Name</label>
         <input
           id="user-name"
           v-model="name"
           type="text"
-          placeholder="Введите имя"
+          placeholder="Enter name"
           required
           minlength="2"
           maxlength="50"
@@ -161,20 +161,20 @@ async function handleSubmit() {
           id="user-email"
           v-model="email"
           type="email"
-          placeholder="Введите email"
+          placeholder="Enter email"
           required
         />
       </div>
 
       <template v-if="mode === 'create'">
         <div class="form-group">
-          <span class="field-label">Пароль (сгенерирован автоматически)</span>
+          <span class="field-label">Password (auto-generated)</span>
           <div class="password-input-wrapper">
             <input
               id="user-password"
               v-model="password"
               :class="['password-input', { masked: !showPassword }]"
-              placeholder="Минимум 8 символов"
+              placeholder="At least 8 characters"
               required
               minlength="8"
               maxlength="100"
@@ -182,13 +182,13 @@ async function handleSubmit() {
               spellcheck="false"
             />
             <div class="password-buttons">
-              <button type="button" class="btn-icon" :title="showPassword ? 'Скрыть' : 'Показать'" @click="showPassword = !showPassword">
+              <button type="button" class="btn-icon" :title="showPassword ? 'Hide' : 'Show'" @click="showPassword = !showPassword">
                 {{ showPassword ? '👁️‍🗨️' : '👁️' }}
               </button>
-              <button type="button" class="btn-icon" title="Копировать" @click="copyPassword">
+              <button type="button" class="btn-icon" title="Copy" @click="copyPassword">
                 {{ passwordCopied ? '✓' : '📋' }}
               </button>
-              <button type="button" class="btn-icon" title="Перегенерировать" @click="password = generatePassword()">
+              <button type="button" class="btn-icon" title="Regenerate" @click="password = generatePassword()">
                 🔄
               </button>
             </div>
@@ -200,19 +200,19 @@ async function handleSubmit() {
         <div class="form-group">
           <label class="checkbox-label">
             <input v-model="changePassword" type="checkbox" />
-            Изменить пароль
+            Change password
           </label>
         </div>
 
         <template v-if="changePassword">
           <div class="form-group">
-            <span class="field-label">Новый пароль (сгенерирован автоматически)</span>
+            <span class="field-label">New password (auto-generated)</span>
             <div class="password-input-wrapper">
               <input
                 id="user-new-password"
                 v-model="password"
                 :class="['password-input', { masked: !showPassword }]"
-                placeholder="Минимум 8 символов"
+                placeholder="At least 8 characters"
                 required
                 minlength="8"
                 maxlength="100"
@@ -220,13 +220,13 @@ async function handleSubmit() {
                 spellcheck="false"
               />
               <div class="password-buttons">
-                <button type="button" class="btn-icon" :title="showPassword ? 'Скрыть' : 'Показать'" @click="showPassword = !showPassword">
+                <button type="button" class="btn-icon" :title="showPassword ? 'Hide' : 'Show'" @click="showPassword = !showPassword">
                   {{ showPassword ? '👁️‍🗨️' : '👁️' }}
                 </button>
-                <button type="button" class="btn-icon" title="Копировать" @click="copyPassword">
+                <button type="button" class="btn-icon" title="Copy" @click="copyPassword">
                   {{ passwordCopied ? '✓' : '📋' }}
                 </button>
-                <button type="button" class="btn-icon" title="Перегенерировать" @click="password = generatePassword()">
+                <button type="button" class="btn-icon" title="Regenerate" @click="password = generatePassword()">
                   🔄
                 </button>
               </div>
@@ -239,9 +239,9 @@ async function handleSubmit() {
       <div v-if="success" class="message success">{{ success }}</div>
 
       <div class="form-actions">
-        <button type="button" class="btn-cancel" @click="emit('close')">Отмена</button>
+        <button type="button" class="btn-cancel" @click="emit('close')">Cancel</button>
         <button type="submit" class="btn-submit" :disabled="loading">
-          {{ loading ? 'Сохранение...' : mode === 'create' ? 'Создать' : 'Сохранить' }}
+          {{ loading ? 'Saving...' : mode === 'create' ? 'Create' : 'Save' }}
         </button>
       </div>
     </form>
@@ -304,7 +304,6 @@ async function handleSubmit() {
   accent-color: #3b82f6;
 }
 
-/* CSS-маска для пароля — звёздочки вместо символов */
 .password-input.masked {
   -webkit-text-security: disc;
 }

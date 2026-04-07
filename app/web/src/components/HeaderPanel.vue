@@ -29,12 +29,12 @@ function onSignOut() {
         <RouterLink to="/dashboard" class="nav-link" active-class="active">Dashboard</RouterLink>
         <RouterLink to="/users" class="nav-link" active-class="active">Users</RouterLink>
       </nav>
-      <button class="btn-sm" @click="emit('openProfile')">Профиль</button>
-      <button class="btn-sm" @click="onSignOut">Выход</button>
+      <button class="btn-sm" @click="emit('openProfile')">Profile</button>
+      <button class="btn-sm" @click="onSignOut">Sign Out</button>
     </div>
 
     <div v-else class="right">
-      <button class="btn-sm" @click="emit('openAuth')">Войти</button>
+      <button class="btn-sm" @click="emit('openAuth')">Sign In</button>
     </div>
   </div>
 </template>

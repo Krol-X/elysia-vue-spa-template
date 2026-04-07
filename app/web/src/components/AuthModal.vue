@@ -23,14 +23,14 @@ async function handleSignIn() {
     emit('close')
   } catch (e: unknown) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    error.value = (e as any)?.value ?? 'Ошибка входа'
+    error.value = (e as any)?.value ?? 'Sign in failed'
   }
 }
 
 async function handleSignUp() {
   error.value = ''
   if (signUpForm.value.password !== signUpForm.value.passwordConfirm) {
-    error.value = 'Пароли не совпадают'
+    error.value = 'Passwords do not match'
     return
   }
   try {
@@ -44,7 +44,7 @@ async function handleSignUp() {
     emit('close')
   } catch (e: unknown) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    error.value = (e as any)?.value ?? 'Ошибка регистрации'
+    error.value = (e as any)?.value ?? 'Sign up failed'
   }
 }
 
@@ -65,13 +65,13 @@ function resetForms() {
           :class="['tab', { active: tab === 'signIn' }]"
           @click="tab = 'signIn'; error = ''"
         >
-          Вход
+          Sign In
         </button>
         <button
           :class="['tab', { active: tab === 'signUp' }]"
           @click="tab = 'signUp'; error = ''"
         >
-          Регистрация
+          Sign Up
         </button>
       </div>
 
@@ -83,15 +83,15 @@ function resetForms() {
           <input v-model="signInForm.email" type="email" required autocomplete="email" />
         </label>
         <label>
-          Пароль
+          Password
           <input v-model="signInForm.password" type="password" required minlength="8" autocomplete="current-password" />
         </label>
-        <button type="submit" class="btn-primary">Войти</button>
+        <button type="submit" class="btn-primary">Sign In</button>
       </form>
 
       <form v-if="tab === 'signUp'" @submit.prevent="handleSignUp" class="form" autocomplete="off">
         <label>
-          Имя
+          Name
           <input v-model="signUpForm.name" type="text" required minlength="2" maxlength="50" autocomplete="off" />
         </label>
         <label>
@@ -99,7 +99,7 @@ function resetForms() {
           <input v-model="signUpForm.email" type="email" required autocomplete="off" />
         </label>
         <div class="form-field">
-          <span class="field-label">Пароль</span>
+          <span class="field-label">Password</span>
           <div class="password-field">
             <input
               id="signup-password"
@@ -110,7 +110,7 @@ function resetForms() {
               minlength="8"
               autocomplete="off"
               spellcheck="false"
-              placeholder="Минимум 8 символов"
+              placeholder="At least 8 characters"
             />
             <button type="button" class="btn-toggle-password" @click="showSignUpPassword = !showSignUpPassword">
               {{ showSignUpPassword ? '👁️‍🗨️' : '👁️' }}
@@ -118,7 +118,7 @@ function resetForms() {
           </div>
         </div>
         <div class="form-field">
-          <span class="field-label">Подтверждение пароля</span>
+          <span class="field-label">Confirm Password</span>
           <div class="password-field">
             <input
               id="signup-password-confirm"
@@ -129,11 +129,11 @@ function resetForms() {
               minlength="8"
               autocomplete="off"
               spellcheck="false"
-              placeholder="Повторите пароль"
+              placeholder="Repeat password"
             />
           </div>
         </div>
-        <button type="submit" class="btn-primary">Зарегистрироваться</button>
+        <button type="submit" class="btn-primary">Sign Up</button>
       </form>
     </div>
   </Modal>
@@ -204,7 +204,6 @@ function resetForms() {
   border-color: var(--accent);
 }
 
-/* CSS-маска для пароля — звёздочки вместо символов */
 .masked {
   -webkit-text-security: disc;
 }

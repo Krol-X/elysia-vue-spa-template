@@ -15,7 +15,6 @@ onMounted(async () => {
   serverInfo.value = JSON.stringify(data, null, 2)
   serverProduction.value = data?.production
 
-  // Browser info
   browserInfo.value = {
     userAgent: navigator.userAgent,
     language: navigator.language,
@@ -33,18 +32,18 @@ onMounted(async () => {
     <h2>Dashboard</h2>
 
     <div class="card">
-      <h3>Режим</h3>
-      <p>Клиент: <code>{{ isProduction() ? 'production' : 'development' }}</code></p>
-      <p>Сервер: <code>{{ serverProduction? 'production' : 'development' }}</code></p>
+      <h3>Mode</h3>
+      <p>Client: <code>{{ isProduction() ? 'production' : 'development' }}</code></p>
+      <p>Server: <code>{{ serverProduction? 'production' : 'development' }}</code></p>
     </div>
 
     <div class="card">
-      <h3>Сервер</h3>
+      <h3>Server</h3>
       <pre>{{ serverInfo }}</pre>
     </div>
 
     <div class="card">
-      <h3>Браузер</h3>
+      <h3>Browser</h3>
       <table>
         <tbody>
           <tr v-for="(value, key) in browserInfo" :key="key">

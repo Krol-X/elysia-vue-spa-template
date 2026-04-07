@@ -19,28 +19,29 @@ async function handleUpdate() {
   try {
     await auth.updateProfile({ name: name.value, email: email.value })
     success.value = true
-  } catch (e: any) {
-    error.value = e?.value ?? 'Ошибка обновления'
+  } catch (e: unknown) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    error.value = (e as any)?.value ?? 'Failed to update profile'
   }
 }
 </script>
 
 <template>
-  <Modal :open="open" title="Профиль" @close="emit('close')">
+  <Modal :open="open" title="Profile" @close="emit('close')">
     <div class="profile-modal">
       <p v-if="error" class="error">{{ error }}</p>
-      <p v-if="success" class="success">Сохранено</p>
+      <p v-if="success" class="success">Saved</p>
 
       <form @submit.prevent="handleUpdate" class="form">
         <label>
-          Имя
+          Name
           <input v-model="name" type="text" required minlength="2" maxlength="50" />
         </label>
         <label>
           Email
           <input v-model="email" type="email" required />
         </label>
-        <button type="submit" class="btn-primary">Сохранить</button>
+        <button type="submit" class="btn-primary">Save</button>
       </form>
     </div>
   </Modal>
