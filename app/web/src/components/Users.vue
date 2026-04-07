@@ -76,6 +76,11 @@ function openEdit(user: { id: string; name: string; email: string }) {
     <p v-if="loading">Loading...</p>
 
     <table v-else-if="users.length" class="users-table">
+      <colgroup>
+        <col />
+        <col />
+        <col class="actions-col" />
+      </colgroup>
       <thead>
         <tr>
           <th>Name</th>
@@ -87,22 +92,11 @@ function openEdit(user: { id: string; name: string; email: string }) {
         <tr v-for="user in users" :key="user.id">
           <td>{{ user.name }}</td>
           <td>{{ user.email }}</td>
-          <td class="actions">
-            <button
-              v-if="user.id !== auth.user.value?.id"
-              class="btn-edit"
-              @click="openEdit(user)"
-            >
-              Edit
-            </button>
-            <button
-              v-if="user.id !== auth.user.value?.id"
-              class="btn-del"
-              @click="removeUser(user.id)"
-            >
-              Delete
-            </button>
-            <span v-else class="current-user-label">(You)</span>
+          <td>
+            <span v-if="user.id !== auth.user.value?.id" class="actions">
+              <button class="btn-edit" @click="openEdit(user)">Edit</button>
+              <button class="btn-del" @click="removeUser(user.id)">Delete</button>
+            </span>
           </td>
         </tr>
       </tbody>
@@ -146,8 +140,6 @@ function openEdit(user: { id: string; name: string; email: string }) {
 .users-table {
   width: 100%;
   border-collapse: collapse;
-  text-align: left;
-  table-layout: fixed;
 }
 
 .users-table th,
@@ -156,22 +148,23 @@ function openEdit(user: { id: string; name: string; email: string }) {
   border-bottom: 1px solid var(--border);
   font-size: 14px;
   vertical-align: middle;
+  text-align: left;
 }
 
 .users-table th {
   color: var(--text-h);
   font-weight: 600;
+  white-space: nowrap;
 }
 
-.users-table td:last-child {
-  width: 220px;
+.actions-col {
+  width: 1%;
+  white-space: nowrap;
 }
 
 .actions {
   display: flex;
   gap: 8px;
-  align-items: center;
-  flex-wrap: wrap;
 }
 
 .btn-edit,
