@@ -25,7 +25,7 @@ export const UserRoutes = new Elysia({ prefix: '/users' })
   })
   .patch(
     '/:id/password',
-    ({ params, body}) => {
+    ({ params, body }) => {
       return UserController.updatePassword(params, body)
     },
     {

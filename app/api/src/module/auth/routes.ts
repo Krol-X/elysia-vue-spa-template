@@ -3,21 +3,13 @@ import { AuthController } from './controller'
 import { AuthDto } from './dto'
 
 export const AuthRoutes = new Elysia({ prefix: '/auth' })
-  .post(
-    '/sign-up',
-    ({ body }) => AuthController.signUp(body),
-    {
-      body: AuthDto.signUpBody,
-      response: AuthDto.signUpResponse,
-      detail: { summary: 'Sign up', tags: ['Auth'] },
-    },
-  )
-  .post(
-    '/sign-in',
-    ({ body }) => AuthController.signIn(body),
-    {
-      body: AuthDto.signInBody,
-      response: AuthDto.signInResponse,
-      detail: { summary: 'Sign in', tags: ['Auth'] },
-    },
-  )
+  .post('/sign-up', ({ body }) => AuthController.signUp(body), {
+    body: AuthDto.signUpBody,
+    response: AuthDto.signUpResponse,
+    detail: { summary: 'Sign up', tags: ['Auth'] },
+  })
+  .post('/sign-in', ({ body }) => AuthController.signIn(body), {
+    body: AuthDto.signInBody,
+    response: AuthDto.signInResponse,
+    detail: { summary: 'Sign in', tags: ['Auth'] },
+  })

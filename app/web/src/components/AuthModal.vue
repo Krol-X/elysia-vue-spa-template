@@ -55,22 +55,35 @@ function resetForms() {
   tab.value = 'signIn'
   showSignUpPassword.value = false
 }
+
+function onModalClose() {
+  resetForms()
+  emit('close')
+}
+
+function switchToSignIn() {
+  tab.value = 'signIn'
+  error.value = ''
+}
+
+function switchToSignUp() {
+  tab.value = 'signUp'
+  error.value = ''
+}
+
+function toggleShowPassword() {
+  showSignUpPassword.value = !showSignUpPassword.value
+}
 </script>
 
 <template>
-  <Modal :open="props.open" title="" @close="resetForms(); emit('close')">
+  <Modal :open="props.open" title="" @close="onModalClose">
     <div class="auth-modal">
       <div class="tabs">
-        <button
-          :class="['tab', { active: tab === 'signIn' }]"
-          @click="tab = 'signIn'; error = ''"
-        >
+        <button :class="['tab', { active: tab === 'signIn' }]" @click="switchToSignIn">
           Sign In
         </button>
-        <button
-          :class="['tab', { active: tab === 'signUp' }]"
-          @click="tab = 'signUp'; error = ''"
-        >
+        <button :class="['tab', { active: tab === 'signUp' }]" @click="switchToSignUp">
           Sign Up
         </button>
       </div>
@@ -84,7 +97,13 @@ function resetForms() {
         </label>
         <label>
           Password
-          <input v-model="signInForm.password" type="password" required minlength="8" autocomplete="current-password" />
+          <input
+            v-model="signInForm.password"
+            type="password"
+            required
+            minlength="8"
+            autocomplete="current-password"
+          />
         </label>
         <button type="submit" class="btn-primary">Sign In</button>
       </form>
@@ -92,7 +111,14 @@ function resetForms() {
       <form v-if="tab === 'signUp'" @submit.prevent="handleSignUp" class="form" autocomplete="off">
         <label>
           Name
-          <input v-model="signUpForm.name" type="text" required minlength="2" maxlength="50" autocomplete="off" />
+          <input
+            v-model="signUpForm.name"
+            type="text"
+            required
+            minlength="2"
+            maxlength="50"
+            autocomplete="off"
+          />
         </label>
         <label>
           Email
@@ -112,7 +138,7 @@ function resetForms() {
               spellcheck="false"
               placeholder="At least 8 characters"
             />
-            <button type="button" class="btn-toggle-password" @click="showSignUpPassword = !showSignUpPassword">
+            <button type="button" class="btn-toggle-password" @click="toggleShowPassword">
               {{ showSignUpPassword ? '👁️‍🗨️' : '👁️' }}
             </button>
           </div>

@@ -19,9 +19,7 @@ function onSignOut() {
 <template>
   <div class="header-panel">
     <div class="left">
-      <RouterLink to="/" class="logo" active-class="active">
-        Vite + Elysia
-      </RouterLink>
+      <RouterLink to="/" class="logo" active-class="active"> Vite + Elysia </RouterLink>
     </div>
 
     <div v-if="auth.isAuthenticated.value" class="right">

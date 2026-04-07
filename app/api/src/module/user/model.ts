@@ -7,10 +7,10 @@ export const User = sqliteTable('users', {
   name: text('name', { length: 50 }).notNull(),
   email: text('email', { length: 255 }).notNull().unique(),
   passwordHash: text('password_hash', { length: 255 }).notNull(),
-  createdAt: integer("created_at", { mode: "timestamp" })
+  createdAt: integer('created_at', { mode: 'timestamp' })
     .notNull()
     .$defaultFn(() => new Date()),
-  updatedAt: integer("updated_at", { mode: "timestamp" })
+  updatedAt: integer('updated_at', { mode: 'timestamp' })
     .notNull()
     .$defaultFn(() => new Date())
     .$onUpdateFn(() => new Date()),

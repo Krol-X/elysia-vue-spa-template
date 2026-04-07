@@ -39,7 +39,9 @@ async function copyPassword() {
   try {
     await navigator.clipboard.writeText(password.value)
     passwordCopied.value = true
-    setTimeout(() => { passwordCopied.value = false }, 2000)
+    setTimeout(() => {
+      passwordCopied.value = false
+    }, 2000)
   } catch {
     const el = document.createElement('textarea')
     el.value = password.value
@@ -48,7 +50,9 @@ async function copyPassword() {
     document.execCommand('copy')
     document.body.removeChild(el)
     passwordCopied.value = true
-    setTimeout(() => { passwordCopied.value = false }, 2000)
+    setTimeout(() => {
+      passwordCopied.value = false
+    }, 2000)
   }
 }
 
@@ -140,7 +144,11 @@ async function handleSubmit() {
 </script>
 
 <template>
-  <Modal :open="open" :title="mode === 'create' ? 'Create User' : 'Edit User'" @close="emit('close')">
+  <Modal
+    :open="open"
+    :title="mode === 'create' ? 'Create User' : 'Edit User'"
+    @close="emit('close')"
+  >
     <form @submit.prevent="handleSubmit" class="user-form" autocomplete="off">
       <div class="form-group">
         <label for="user-name">Name</label>
@@ -157,13 +165,7 @@ async function handleSubmit() {
 
       <div class="form-group">
         <label for="user-email">Email</label>
-        <input
-          id="user-email"
-          v-model="email"
-          type="email"
-          placeholder="Enter email"
-          required
-        />
+        <input id="user-email" v-model="email" type="email" placeholder="Enter email" required />
       </div>
 
       <template v-if="mode === 'create'">
@@ -182,13 +184,23 @@ async function handleSubmit() {
               spellcheck="false"
             />
             <div class="password-buttons">
-              <button type="button" class="btn-icon" :title="showPassword ? 'Hide' : 'Show'" @click="showPassword = !showPassword">
+              <button
+                type="button"
+                class="btn-icon"
+                :title="showPassword ? 'Hide' : 'Show'"
+                @click="showPassword = !showPassword"
+              >
                 {{ showPassword ? '👁️‍🗨️' : '👁️' }}
               </button>
               <button type="button" class="btn-icon" title="Copy" @click="copyPassword">
                 {{ passwordCopied ? '✓' : '📋' }}
               </button>
-              <button type="button" class="btn-icon" title="Regenerate" @click="password = generatePassword()">
+              <button
+                type="button"
+                class="btn-icon"
+                title="Regenerate"
+                @click="password = generatePassword()"
+              >
                 🔄
               </button>
             </div>
@@ -220,13 +232,23 @@ async function handleSubmit() {
                 spellcheck="false"
               />
               <div class="password-buttons">
-                <button type="button" class="btn-icon" :title="showPassword ? 'Hide' : 'Show'" @click="showPassword = !showPassword">
+                <button
+                  type="button"
+                  class="btn-icon"
+                  :title="showPassword ? 'Hide' : 'Show'"
+                  @click="showPassword = !showPassword"
+                >
                   {{ showPassword ? '👁️‍🗨️' : '👁️' }}
                 </button>
                 <button type="button" class="btn-icon" title="Copy" @click="copyPassword">
                   {{ passwordCopied ? '✓' : '📋' }}
                 </button>
-                <button type="button" class="btn-icon" title="Regenerate" @click="password = generatePassword()">
+                <button
+                  type="button"
+                  class="btn-icon"
+                  title="Regenerate"
+                  @click="password = generatePassword()"
+                >
                   🔄
                 </button>
               </div>
@@ -299,7 +321,7 @@ async function handleSubmit() {
   color: var(--text);
 }
 
-.checkbox-label input[type="checkbox"] {
+.checkbox-label input[type='checkbox'] {
   width: 16px;
   height: 16px;
   cursor: pointer;

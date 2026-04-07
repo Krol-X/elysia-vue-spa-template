@@ -46,7 +46,9 @@ async function copyPassword() {
   try {
     await navigator.clipboard.writeText(password.value)
     passwordCopied.value = true
-    setTimeout(() => { passwordCopied.value = false }, 2000)
+    setTimeout(() => {
+      passwordCopied.value = false
+    }, 2000)
   } catch {
     const el = document.createElement('textarea')
     el.value = password.value
@@ -55,7 +57,9 @@ async function copyPassword() {
     document.execCommand('copy')
     document.body.removeChild(el)
     passwordCopied.value = true
-    setTimeout(() => { passwordCopied.value = false }, 2000)
+    setTimeout(() => {
+      passwordCopied.value = false
+    }, 2000)
   }
 }
 
@@ -123,13 +127,23 @@ async function handleUpdate() {
               spellcheck="false"
             />
             <div class="password-buttons">
-              <button type="button" class="btn-icon" :title="showPassword ? 'Hide' : 'Show'" @click="showPassword = !showPassword">
+              <button
+                type="button"
+                class="btn-icon"
+                :title="showPassword ? 'Hide' : 'Show'"
+                @click="showPassword = !showPassword"
+              >
                 {{ showPassword ? '👁️‍🗨️' : '👁️' }}
               </button>
               <button type="button" class="btn-icon" title="Copy" @click="copyPassword">
                 {{ passwordCopied ? '✓' : '📋' }}
               </button>
-              <button type="button" class="btn-icon" title="Regenerate" @click="password = generatePassword()">
+              <button
+                type="button"
+                class="btn-icon"
+                title="Regenerate"
+                @click="password = generatePassword()"
+              >
                 🔄
               </button>
             </div>
@@ -201,7 +215,7 @@ async function handleUpdate() {
   color: var(--text);
 }
 
-.checkbox-label input[type="checkbox"] {
+.checkbox-label input[type='checkbox'] {
   width: 16px;
   height: 16px;
   cursor: pointer;

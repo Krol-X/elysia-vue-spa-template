@@ -18,10 +18,10 @@ const app = new Elysia()
   .use(
     isProduction()
       ? await staticPlugin({
-        assets: '.',
-        prefix: '/',
-        indexHTML: true,
-      })
+          assets: '.',
+          prefix: '/',
+          indexHTML: true,
+        })
       : (app) => app,
   )
   .use(api)

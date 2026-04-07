@@ -1,7 +1,9 @@
 import { dbConnection } from '@/db'
 
 const email = 'test@test.com'
-const existing = dbConnection.query('SELECT id FROM users WHERE email = ?').get(email) as { id: string } | undefined
+const existing = dbConnection.query('SELECT id FROM users WHERE email = ?').get(email) as
+  | { id: string }
+  | undefined
 
 if (!existing) {
   const passwordHash = await Bun.password.hash('testtest')

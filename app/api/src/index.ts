@@ -7,4 +7,4 @@ if (cliCommand === 'db:migrate' || cliCommand === 'db:seed') {
 
 await import('@/server')
 
-export { }
+export {}

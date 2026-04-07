@@ -22,22 +22,34 @@ function openEditUserModal(user: { id: string; name: string; email: string }) {
   editingUser.value = user
   showUserModal.value = true
 }
+
+function toggleAuthModal() {
+  showAuthModal.value = !showAuthModal.value
+}
+
+function toggleProfileModal() {
+  showProfileModal.value = !showProfileModal.value
+}
+
+function toggleUserModal() {
+  showUserModal.value = !showUserModal.value
+}
 </script>
 
 <template>
-  <HeaderPanel @open-auth="showAuthModal = true" @open-profile="showProfileModal = true" />
+  <HeaderPanel @open-auth="toggleAuthModal" @open-profile="toggleProfileModal" />
 
   <div id="content">
     <router-view @open-create-modal="openCreateUserModal" @open-edit-modal="openEditUserModal" />
   </div>
 
-  <AuthModal :open="showAuthModal" @close="showAuthModal = false" @signed-in="showAuthModal = false" />
-  <ProfileModal :open="showProfileModal" @close="showProfileModal = false" />
+  <AuthModal :open="showAuthModal" @close="toggleAuthModal" @signed-in="toggleAuthModal" />
+  <ProfileModal :open="showProfileModal" @close="toggleProfileModal" />
   <UserModal
     :open="showUserModal"
     :mode="userModalMode"
     :user="editingUser"
-    @close="showUserModal = false"
+    @close="toggleUserModal"
     @saved="() => {}"
   />
 </template>

@@ -92,9 +92,12 @@ export function useAuth() {
 
   async function resetPassword(id: string, password: string) {
     // @ts-expect-error Eden dynamic type
-    const { data: result, error } = await api.api.users({ id }).password.patch({ password }, {
-      headers: getAuthHeaders(),
-    })
+    const { data: result, error } = await api.api.users({ id }).password.patch(
+      { password },
+      {
+        headers: getAuthHeaders(),
+      },
+    )
     if (error) throw error
     return result
   }

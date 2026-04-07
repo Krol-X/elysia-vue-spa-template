@@ -33,8 +33,12 @@ onMounted(async () => {
 
     <div class="card">
       <h3>Mode</h3>
-      <p>Client: <code>{{ isProduction() ? 'production' : 'development' }}</code></p>
-      <p>Server: <code>{{ serverProduction? 'production' : 'development' }}</code></p>
+      <p>
+        Client: <code>{{ isProduction() ? 'production' : 'development' }}</code>
+      </p>
+      <p>
+        Server: <code>{{ serverProduction ? 'production' : 'development' }}</code>
+      </p>
     </div>
 
     <div class="card">
