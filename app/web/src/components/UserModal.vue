@@ -289,12 +289,14 @@ async function handleSubmit() {
 }
 
 .checkbox-label {
-  display: flex !important;
-  flex-direction: row !important;
+  display: flex;
+  flex-direction: row;
   align-items: center;
   gap: 8px;
   cursor: pointer;
-  font-weight: 400;
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--text);
 }
 
 .checkbox-label input[type="checkbox"] {
