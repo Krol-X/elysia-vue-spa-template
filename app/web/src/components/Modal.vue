@@ -4,6 +4,7 @@ import { watch } from 'vue'
 const props = defineProps<{
   open: boolean
   title?: string
+  closeOnOverlayClick?: boolean
 }>()
 
 const emit = defineEmits<{
@@ -12,6 +13,12 @@ const emit = defineEmits<{
 
 function onKeydown(e: KeyboardEvent) {
   if (e.key === 'Escape') emit('close')
+}
+
+function onOverlayClick() {
+  if (props.closeOnOverlayClick) {
+    emit('close')
+  }
 }
 
 watch(
@@ -31,7 +38,7 @@ watch(
 <template>
   <Teleport to="body">
     <Transition name="modal">
-      <div v-if="open" class="modal-overlay" @click.self="emit('close')">
+      <div v-if="open" class="modal-overlay" @click.self="onOverlayClick">
         <div class="modal-content">
           <div v-if="title" class="modal-header">
             <h2>{{ title }}</h2>

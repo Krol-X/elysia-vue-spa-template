@@ -34,4 +34,12 @@ export abstract class UserController {
       throw status(404, e.message)
     }
   }
+
+  static updatePassword(params: UserId, body: { password: string }) {
+    try {
+      return UserService.updatePassword(params, body.password)
+    } catch (e: any) {
+      throw status(404, e.message)
+    }
+  }
 }

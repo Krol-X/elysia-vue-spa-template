@@ -61,6 +61,42 @@ export function useAuth() {
     if (error) throw error
     user.value = { ...user.value, ...result }
     localStorage.setItem('user', JSON.stringify(user.value))
+    window.dispatchEvent(new CustomEvent('users-updated'))
+  }
+
+  async function createUser(data: { name: string; email: string; password: string }) {
+    // @ts-expect-error Eden dynamic type
+    const { data: result, error } = await api.api.users.post(data, {
+      headers: getAuthHeaders(),
+    })
+    if (error) throw error
+    return result
+  }
+
+  async function updateUser(id: string, data: { name?: string; email?: string }) {
+    // @ts-expect-error Eden dynamic type
+    const { data: result, error } = await api.api.users({ id }).patch(data, {
+      headers: getAuthHeaders(),
+    })
+    if (error) throw error
+    return result
+  }
+
+  async function deleteUser(id: string) {
+    // @ts-expect-error Eden dynamic type
+    const { error } = await api.api.users({ id }).delete(undefined, {
+      headers: getAuthHeaders(),
+    })
+    if (error) throw error
+  }
+
+  async function resetPassword(id: string, password: string) {
+    // @ts-expect-error Eden dynamic type
+    const { data: result, error } = await api.api.users({ id }).password.patch({ password }, {
+      headers: getAuthHeaders(),
+    })
+    if (error) throw error
+    return result
   }
 
   return {
@@ -72,5 +108,9 @@ export function useAuth() {
     signOut,
     updateProfile,
     getAuthHeaders,
+    createUser,
+    updateUser,
+    deleteUser,
+    resetPassword,
   }
 }

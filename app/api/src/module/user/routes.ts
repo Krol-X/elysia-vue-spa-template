@@ -23,6 +23,20 @@ export const UserRoutes = new Elysia({ prefix: '/users' })
     response: UserDto.response,
     detail: { summary: 'Update user', tags: ['Users'] },
   })
+  .patch(
+    '/:id/password',
+    ({ params, body}) => {
+      return UserController.updatePassword(params, body)
+    },
+    {
+      params: UserDto.params,
+      body: t.Object({
+        password: t.String({ minLength: 8, maxLength: 100 }),
+      }),
+      response: UserDto.response,
+      detail: { summary: 'Reset user password', tags: ['Users'] },
+    },
+  )
   .delete('/:id', ({ params }) => UserController.remove(params), {
     params: UserDto.params,
     response: t.Object({ success: t.Boolean(), id: t.String() }),
