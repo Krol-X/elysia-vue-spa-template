@@ -1,6 +1,6 @@
 # Elysia + Vue SPA Template
 
-A minimal full-stack template with Vue frontend and Elysia backend, compiled into a single executable.
+A minimal full-stack template with Vue frontend and Elysia backend.
 
 
 ## Quick Start
